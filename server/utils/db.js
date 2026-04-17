@@ -5,6 +5,11 @@ const dbPath = process.env.DB_FILE_PATH || path.join(__dirname, "..", "db.json")
 const initialDb = { users: [], students: [], attendance: [], sessions: [] };
 
 function ensureDbFile() {
+  const dbDir = path.dirname(dbPath);
+  if (!fs.existsSync(dbDir)) {
+    fs.mkdirSync(dbDir, { recursive: true });
+  }
+
   if (!fs.existsSync(dbPath)) {
     fs.writeFileSync(dbPath, JSON.stringify(initialDb, null, 2));
   }
