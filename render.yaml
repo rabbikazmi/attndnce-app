@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: it2-attendance-api
+    env: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: JWT_SECRET
+        value: it2_attendance_secret_2024
+      - key: CORS_ORIGIN
+        sync: false
+      - key: DB_FILE_PATH
+        value: /var/data/db.json
+    disk:
+      name: it2-attendance-data
+      mountPath: /var/data
+      sizeGB: 1

@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const cors = require("cors");
 const express = require("express");
 const authRoutes = require("./routes/auth");
@@ -7,13 +9,14 @@ const studentsRoutes = require("./routes/students");
 const { readDb } = require("./utils/db");
 
 const app = express();
-const JWT_SECRET = "it2_attendance_secret_2024";
-const PORT = 5000;
+const JWT_SECRET = process.env.JWT_SECRET || "it2_attendance_secret_2024";
+const PORT = process.env.PORT || 5000;
+const CORS_ORIGIN = process.env.CORS_ORIGIN || true;
 
 app.set("jwtSecret", JWT_SECRET);
 app.set("trust proxy", true);
 
-app.use(cors());
+app.use(cors({ origin: CORS_ORIGIN }));
 app.use(express.json());
 
 app.get("/api/health", (req, res) => {
@@ -35,10 +38,6 @@ app.use((error, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  const db = readDb();
-  if (!db.users.length) {
-    console.log(`IT2 Attendance API running on http://localhost:${PORT}`);
-  } else {
-    console.log(`IT2 Attendance API running on http://localhost:${PORT}`);
-  }
+  readDb();
+  console.log(`IT2 Attendance API running on port ${PORT}`);
 });

@@ -38,6 +38,15 @@ npm run deploy
 
 After deploy, app URLs use hash routes (for example `#/reports`) so page refresh works on GitHub Pages.
 
+## Deploy Backend To Render
+1. Push the repo to GitHub.
+2. Create a new Render Web Service from the repo root using `render.yaml`, or create one manually with `server` as the root directory.
+3. Set `CORS_ORIGIN` to your GitHub Pages URL.
+4. Keep `DB_FILE_PATH` pointed at Render's mounted disk path so `db.json` persists between restarts.
+5. Deploy the backend and copy its HTTPS URL into `client/.env.production` as `VITE_API_BASE`.
+
+The backend stores data in `db.json` on the mounted disk, so you do not need an external database.
+
 ## First run
 1. Open http://localhost:5173/signup
 2. Sign up with batch = IT2 and you become admin automatically.
