@@ -13,9 +13,3 @@ services:
         value: it2_attendance_secret_2024
       - key: CORS_ORIGIN
         sync: false
-      - key: DB_FILE_PATH
-        value: /var/data/db.json
-    disk:
-      name: it2-attendance-data
-      mountPath: /var/data
-      sizeGB: 1

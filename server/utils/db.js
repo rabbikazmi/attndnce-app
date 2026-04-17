@@ -7,15 +7,7 @@ const initialDb = { users: [], students: [], attendance: [], sessions: [] };
 function ensureDbFile() {
   const dbDir = path.dirname(dbPath);
   if (!fs.existsSync(dbDir)) {
-    try {
-      fs.mkdirSync(dbDir, { recursive: true });
-    } catch (err) {
-      // If EACCES (permission denied), the directory is already mounted by the host
-      // (e.g., on Render). In this case, just proceed—the mount point exists.
-      if (err.code !== 'EACCES') {
-        throw err;
-      }
-    }
+    fs.mkdirSync(dbDir, { recursive: true });
   }
 
   if (!fs.existsSync(dbPath)) {
